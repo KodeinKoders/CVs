@@ -1,29 +1,42 @@
 import kotlinext.js.jsObject
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
+import kotlinx.css.properties.lh
 import kotlinx.html.InputType
-import kotlinx.html.for_
 import kotlinx.html.id
 import kotlinx.html.js.onChangeFunction
+import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLSelectElement
+import org.w3c.dom.events.Event
 import org.w3c.dom.url.URLSearchParams
-import react.RProps
-import react.child
-import react.dom.*
-import react.functionalComponent
+import react.*
+import react.dom.input
+import react.dom.label
+import react.dom.option
+import react.dom.render
 import react.router.dom.hashRouter
 import react.router.dom.route
 import styled.*
 import utils.getValue
 import kotlin.browser.document
+import kotlin.browser.window
 
 fun CSSBuilder.globalCSS() {
     body {
         backgroundColor = Color("#262626")
         fontFamily = "Picon"
         fontSize = 5.mm
+        lineHeight = 6.25.mm.lh
         put("-webkit-print-color-adjust", "exact")
+    }
+
+    h1 {
+        lineHeight = 15.mm.lh
+    }
+
+    h2 {
+        lineHeight = 8.mm.lh
     }
 
     a {
@@ -120,9 +133,10 @@ val cvRenderer by functionalComponent<CVProps> { props ->
             }
             color = Color.kodeinLight
             flexDirection = FlexDirection.row
-            justifyContent = JustifyContent.spaceBetween
+            justifyContent = JustifyContent.center
+            flexWrap = FlexWrap.wrap
             alignItems = Align.center
-            width = 26.em
+            width = 100.pct - 2.em
             fontSize = 1.em
             margin(LinearDimension.auto)
             padding(1.em)
@@ -134,8 +148,11 @@ val cvRenderer by functionalComponent<CVProps> { props ->
             }
         }
 
+        val itemMargin = 0.5.em
+        
         styledSelect {
             css {
+                margin(itemMargin)
                 if (props.person == null) {
                     specific {
                         fontStyle = FontStyle.italic
@@ -173,7 +190,10 @@ val cvRenderer by functionalComponent<CVProps> { props ->
 
         if (props.person != null) {
             val languages = CVs[props.person]!!.languages
-            select {
+            styledSelect {
+                css {
+                    margin(itemMargin)
+                }
                 attrs{
                     onChangeFunction = {
                         val new = (it.target as HTMLSelectElement).value
@@ -189,7 +209,10 @@ val cvRenderer by functionalComponent<CVProps> { props ->
                 }
             }
 
-            span {
+            styledSpan {
+                css {
+                    margin(itemMargin)
+                }
                 input(InputType.checkBox) {
                     attrs {
                         id = "anon"
@@ -207,7 +230,10 @@ val cvRenderer by functionalComponent<CVProps> { props ->
                 }
             }
 
-            span {
+            styledSpan {
+                css {
+                    margin(itemMargin)
+                }
                 input(InputType.checkBox) {
                     attrs {
                         id = "gs"

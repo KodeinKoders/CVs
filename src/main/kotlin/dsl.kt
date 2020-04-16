@@ -1,10 +1,14 @@
 import kotlinx.css.*
 import kotlinx.css.properties.boxShadow
 import kotlinx.css.properties.lh
-import react.RBuilder
+import org.w3c.dom.HTMLDivElement
+import org.w3c.dom.events.Event
+import react.*
 import react.dom.*
 import styled.*
 import utils.intermediate
+import kotlin.browser.document
+import kotlin.browser.window
 import kotlin.js.Date
 
 private fun Int.groupBackgroundColor() = when (this) {
@@ -32,177 +36,204 @@ fun cv(
         birth: Date,
         builder: CVBuilder.() -> Unit
 ): RBuilder.(String, Boolean, Boolean) -> Unit = { lang, anonymous, grayScale ->
-    styledDiv {
-        css {
-            media("not print") {
-                width = (210 - 1).mm
-                height = (297 - 1).mm
-                margin(2.em, LinearDimension.auto)
-                boxShadow(Color.black, blurRadius = 1.em, spreadRadius = 0.5.em)
+    val comp = functionalComponent<RProps> {
+
+        val div = useRef<HTMLDivElement?>(null)
+        useEffectWithCleanup(emptyList()) {
+            fun updateSize() {
+                val wwidth = document.body!!.clientWidth
+                val cwidth = div.current!!.clientWidth
+                if (wwidth - cwidth < 0) {
+                    val scale = wwidth.toDouble() / cwidth.toDouble()
+                    div.current!!.style.transformOrigin = ""
+                    div.current!!.style.transform = "scale($scale)"
+                }
+                else div.current!!.style.transform = ""
             }
-            media("print") {
-                height = 100.pct
-            }
-            display = Display.flex
-            flexDirection = FlexDirection.column
-            position = Position.relative
-            backgroundColor = Color.white
-            color = Color.black
+            updateSize()
+
+            val el: (Event) -> Unit = { updateSize() }
+
+            window.addEventListener("resize", el)
+
+            ({ window.removeEventListener("resize", el) })
         }
 
         styledDiv {
+            ref = div
             css {
-                backgroundColor = if (grayScale) Color.white else Color.kodeinDark
+                media("not print") {
+                    width = (210 - 1).mm
+                    height = (297 - 1).mm
+                    margin(2.em, LinearDimension.auto)
+                    boxShadow(Color.black, blurRadius = 1.em, spreadRadius = 0.5.em)
+                    put("transform-origin", "top left")
+                }
+                media("print") {
+                    height = 100.pct
+                }
                 display = Display.flex
-                flexDirection = FlexDirection.row
-                justifyContent = JustifyContent.center
+                flexDirection = FlexDirection.column
                 position = Position.relative
-                paddingBottom = 3.mm
+                backgroundColor = Color.white
+                color = Color.black
             }
 
             styledDiv {
                 css {
+                    backgroundColor = if (grayScale) Color.white else Color.kodeinDark
                     display = Display.flex
-                    flexDirection = FlexDirection.column
-                    alignItems = Align.flexStart
-                    flexGrow = 1.0
-                    padding(sideMargins.mm)
-                    zIndex = 3
+                    flexDirection = FlexDirection.row
+                    justifyContent = JustifyContent.center
+                    position = Position.relative
+                    paddingBottom = 3.mm
                 }
 
-                styledImg(src = if (grayScale) "kodein-darkGray.svg.png" else "kodein-darkOrange.svg.png") {
+                styledDiv {
                     css {
-                        height = 10.mm
-                    }
-                }
-
-                styledH1 {
-                    css {
-                        textAlign = TextAlign.center
-                        if (grayScale) {
-                            color = Color.black
-                        }
-                        else {
-                            color = Color.kodeinOrange
-//                            background = "linear-gradient(to right, ${Color.kodeinOrange}, ${Color.kodeinPink})"
-//                            put("-webkit-background-clip", "text")
-//                            put("-webkit-text-fill-color", "transparent")
-                        }
-                        display = Display.inlineBlock
-                        fontSize = if (anonymous) 10.mm else 12.mm
-                        fontWeight = FontWeight.w800
-                        margin(3.mm, 0.mm, 0.mm, 0.mm)
+                        display = Display.flex
+                        flexDirection = FlexDirection.column
+                        alignItems = Align.flexStart
+                        flexGrow = 1.0
+                        padding(sideMargins.mm)
+                        zIndex = 3
                     }
 
-                    val txt = if (anonymous) title.text(lang) else name
-//                    +txt
+                    styledImg(src = if (grayScale) "kodein-darkGray.svg.png" else "kodein-darkOrange.svg.png") {
+                        css {
+                            height = 10.mm
+                        }
+                    }
 
-                    txt.forEachIndexed { i, c ->
+                    styledH1 {
+                        css {
+                            textAlign = TextAlign.center
+                            if (grayScale) {
+                                color = Color.black
+                            }
+                            else {
+                                color = Color.kodeinOrange
+    //                            background = "linear-gradient(to right, ${Color.kodeinOrange}, ${Color.kodeinPink})"
+    //                            put("-webkit-background-clip", "text")
+    //                            put("-webkit-text-fill-color", "transparent")
+                            }
+                            display = Display.inlineBlock
+                            fontSize = if (anonymous) 10.mm else 12.mm
+                            fontWeight = FontWeight.w800
+                            margin(3.mm, 0.mm, 0.mm, 0.mm)
+                        }
+
+                        val txt = if (anonymous) title.text(lang) else name
+    //                    +txt
+
+                        txt.forEachIndexed { i, c ->
+                            styledSpan {
+                                css {
+                                    if (!grayScale) {
+                                        color = intermediate(Color.kodeinOrange, Color.kodeinPink, i.toDouble() / (txt.lastIndex).toDouble())
+                                    }
+                                }
+                                +c.toString()
+                            }
+                        }
+
+                    }
+
+                    if (!anonymous) {
                         styledSpan {
                             css {
-                                if (!grayScale) {
-                                    color = intermediate(Color.kodeinOrange, Color.kodeinPink, i.toDouble() / (txt.lastIndex).toDouble())
-                                }
+                                fontWeight = FontWeight.w600
+                                fontSize = 6.mm
+                                color = if (grayScale) Color.dimGray else Color.kodeinLightOrange
+                                marginTop = -2.mm
                             }
-                            +c.toString()
+
+                            +title.text(lang)
                         }
                     }
-
                 }
 
-                if (!anonymous) {
-                    styledSpan {
-                        css {
-                            fontWeight = FontWeight.w600
-                            fontSize = 6.mm
-                            color = if (grayScale) Color.dimGray else Color.kodeinLightOrange
-                            marginTop = -2.mm
-                        }
-
-                        +title.text(lang)
-                    }
-                }
-            }
-
-            styledDiv {
-                css {
-                    color = if (grayScale) Color.dimGray else Color.kodeinDarkOrange
-                    fontWeight = FontWeight.w600
-                    margin(sideMargins.mm)
-                    marginRight = 8.mm
-                    paddingTop = 3.mm
-                    lineHeight = 6.mm.lh
-                    zIndex = 3
-                }
-
-                if (anonymous) {
-                    +"contact@kodein.net"
-                } else {
-                    +email
-                    br {}
-                    +phone.text(lang)
-                }
-                br {}
-                styledSmall {
+                styledDiv {
                     css {
-                        paddingTop = 2.mm
-                        fontSize = 4.4.mm
-                        display = Display.inlineBlock
+                        color = if (grayScale) Color.dimGray else Color.kodeinDarkOrange
+                        fontWeight = FontWeight.w600
+                        margin(sideMargins.mm)
+                        marginRight = 8.mm
+                        paddingTop = 3.mm
+                        lineHeight = 6.mm.lh
+                        zIndex = 3
                     }
 
-                    val age = run {
-                        val today = Date()
-                        val age = today.getFullYear() - birth.getFullYear();
-                        val m = today.getMonth() - birth.getMonth();
-                        if (m < 0 || (m == 0 && today.getDate() < birth.getDate())) {
-                            age - 1
-                        } else {
-                            age
+                    if (anonymous) {
+                        +"contact@kodein.net"
+                    } else {
+                        +email
+                        br {}
+                        +phone.text(lang)
+                    }
+                    br {}
+                    styledSmall {
+                        css {
+                            paddingTop = 2.mm
+                            fontSize = 4.4.mm
+                            display = Display.inlineBlock
+                        }
+
+                        val age = run {
+                            val today = Date()
+                            val age = today.getFullYear() - birth.getFullYear();
+                            val m = today.getMonth() - birth.getMonth();
+                            if (m < 0 || (m == 0 && today.getDate() < birth.getDate())) {
+                                age - 1
+                            } else {
+                                age
+                            }
+                        }
+
+                        +when (lang) {
+                            "fr" -> "$age ans"
+                            else -> "$age years old"
                         }
                     }
+                }
 
-                    +when (lang) {
-                        "fr" -> "$age ans"
-                        else -> "$age years old"
+                styledSpan {
+                    css {
+                        position = Position.absolute
+                        display = Display.block
+                        bottom = 5.mm ; right = 0.mm ; left = 0.mm
+                        height = 12.mm
+                        background = "linear-gradient(to bottom right, ${if (grayScale) Color.white else Color.kodeinDark} 49%, transparent 51%)"
+                        zIndex = 2
+                    }
+                }
+                styledSpan {
+                    css {
+                        position = Position.absolute
+                        display = Display.block
+                        bottom = 0.mm ; right = 0.mm ; left = 0.mm
+                        height = 17.mm
+                        background = "linear-gradient(to bottom right, ${if (grayScale) Color.gray else Color.kodeinDarkerPink} 49%, ${if (grayScale) Color.white else Color.kodeinLighterOrange} 51%)"
+                        zIndex = 1
                     }
                 }
             }
 
-            styledSpan {
-                css {
-                    position = Position.absolute
-                    display = Display.block
-                    bottom = 5.mm ; right = 0.mm ; left = 0.mm
-                    height = 12.mm
-                    background = "linear-gradient(to bottom right, ${if (grayScale) Color.white else Color.kodeinDark} 49%, transparent 51%)"
-                    zIndex = 2
-                }
-            }
-            styledSpan {
-                css {
-                    position = Position.absolute
-                    display = Display.block
-                    bottom = 0.mm ; right = 0.mm ; left = 0.mm
-                    height = 17.mm
-                    background = "linear-gradient(to bottom right, ${if (grayScale) Color.gray else Color.kodeinDarkerPink} 49%, ${if (grayScale) Color.white else Color.kodeinLighterOrange} 51%)"
-                    zIndex = 1
-                }
-            }
-        }
+            CVBuilder(this, lang, anonymous, grayScale).builder()
 
-        CVBuilder(this, lang, anonymous, grayScale).builder()
-
-        if (!grayScale) {
-            styledDiv {
-                css {
-                    position = Position.absolute
-                    bottom = 0.mm ; left = 0.mm ; right = 0.mm
-                    height = 2.5.mm
-                    background = "linear-gradient(to right, ${Color.kodeinOrange}, ${Color.kodeinPink})"
+            if (!grayScale) {
+                styledDiv {
+                    css {
+                        position = Position.absolute
+                        bottom = 0.mm ; left = 0.mm ; right = 0.mm
+                        height = 2.5.mm
+                        background = "linear-gradient(to right, ${Color.kodeinOrange}, ${Color.kodeinPink})"
+                    }
                 }
             }
         }
     }
+    child(comp)
 }
 
 private fun Text.text(lang: String) = this[lang] ?: this["all"] ?: this["en"] ?: "UNKNOWN"
@@ -237,7 +268,7 @@ class CVBuilder(
                     alignItems = Align.center
                 }
 
-                styledH1 {
+                styledH2 {
                     css {
                         fontSize = 8.mm
                         fontWeight = FontWeight.w300

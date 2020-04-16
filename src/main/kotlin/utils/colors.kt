@@ -58,10 +58,6 @@ fun intermediate(from: Color, to: Color, p: Double): Color {
     val fromRGBA = from.toRGBA()
     val toRGBA = to.toRGBA()
 
-    console.log("-")
-    console.log(fromRGBA)
-    console.log(toRGBA)
-
     val r = (fromRGBA.red * (1 - p) + toRGBA.red * p).toInt()
     val g = (fromRGBA.green * (1 - p) + toRGBA.green * p).toInt()
     val b = (fromRGBA.blue * (1 - p) + toRGBA.blue * p).toInt()

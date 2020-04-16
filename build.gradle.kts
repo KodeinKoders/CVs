@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.3.70"
+    kotlin("js") version "1.3.72"
     id("org.ajoberstar.git-publish") version "2.1.3"
 }
 
