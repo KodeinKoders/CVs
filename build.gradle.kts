@@ -1,5 +1,6 @@
 plugins {
     kotlin("js") version "1.3.70"
+    id("org.ajoberstar.git-publish") version "2.1.3"
 }
 
 version = "1.0"
@@ -44,8 +45,12 @@ kotlin {
     sourceSets.all { languageSettings.enableLanguageFeature("NewInference") }
 }
 
-//task<Sync>("publish") {
-//    dependsOn("browserDistribution")
-//    from("$buildDir/distributions")
-//    into("$rootDir/docs")
-//}
+gitPublish {
+    repoUri.set("git@github.com:KodeinKoders/CVs.git")
+    branch.set("gh-pages")
+    contents {
+        from("$buildDir/distributions")
+    }
+}
+
+tasks["gitPublishCopy"].dependsOn("browserDistribution")
