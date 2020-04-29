@@ -1,9 +1,12 @@
 import react.dom.b
+import utils.Name
 import kotlin.js.Date
 
 object Salomon {
+    const val name : Name = "Salomon BRYS"
+
     val cv = cv(
-            name = "Salomon BRYS",
+            name = this.name,
             title = T(
                     "en" to "CTO / mobile architect",
                     "fr" to "CTO / architecte mobile"

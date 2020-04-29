@@ -1,11 +1,14 @@
 import kotlinx.css.*
 import kotlinx.css.properties.boxShadow
 import kotlinx.css.properties.lh
+import kotlinx.html.InputType
 import org.w3c.dom.HTMLDivElement
+import org.w3c.dom.css.CSSPageRule
 import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
 import styled.*
+import utils.Name
 import utils.intermediate
 import kotlin.browser.document
 import kotlin.browser.window
@@ -29,7 +32,7 @@ fun T(vararg pairs: Pair<String, String>): Text = mapOf(*pairs)
 val sideMargins: Number = 8
 
 fun cv(
-        name: String,
+        name: Name,
         title: Text,
         email: String,
         phone: Text,
@@ -70,6 +73,9 @@ fun cv(
                     put("transform-origin", "top left")
                 }
                 media("print") {
+                    rule("@page") {
+                        margin(0.mm)
+                    }
                     height = 100.pct
                 }
                 display = Display.flex
@@ -272,6 +278,7 @@ class CVBuilder(
                     css {
                         fontSize = 8.mm
                         fontWeight = FontWeight.w300
+                        paddingBottom = 1.mm
                     }
                     +title.text(lang)
                 }

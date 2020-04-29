@@ -1,4 +1,5 @@
 import react.RBuilder
+import utils.initials
 
 class CV(
         val person: String,
@@ -7,5 +8,6 @@ class CV(
 )
 
 val CVs = mapOf(
-        "SB" to CV("Salomon BRYS", listOf("en", "fr"), Salomon.cv)
+        Salomon.name.initials() to CV(Salomon.name, listOf("en", "fr"), Salomon.cv),
+        Romain.name.initials() to CV(Romain.name, listOf("en", "fr"), Romain.cv)
 )
