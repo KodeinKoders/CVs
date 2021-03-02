@@ -10,8 +10,8 @@ object Romain {
     val cv = cv(
             name = this.name,
             title = T(
-                    "en" to "Kotlin mobile developer",
-                    "fr" to "Développeur mobile Kotlin"
+                    "en" to "Kotlin Developer / Trainer",
+                    "fr" to "Développeur / Formateur Kotlin"
             ),
             email = "romain@kodein.net",
             phone = T(
@@ -30,21 +30,21 @@ object Romain {
             yearSpanList {
                 (2018..Int.MAX_VALUE) (
                         "en" to {
-                            title("Founder & developer at Kodein Koders","(Kotlin consultancy)")
+                            title("Founder at Kodein Koders","(Kotlin Developer & Trainer)")
                             description(
                                 "Providing consultancy, training, and Open Source tools for Kotlin technologies.",
                                 "Certified Jetbrains partner & Kotlin trainer."
                             )
                         },
                         "fr" to {
-                            title("Fondateur & développeur chez Kodein Koders","(consultance Kotlin)")
+                            title("Fondateur de Kodein Koders","(Developpeur et Formateur Kotlin)")
                             description(
                                 "Formation, consultance, et développement Open Source Kotlin.",
                                 "Certifié partenaire Jetbrains & formateur Kotlin."
                             )
                         }
                 )
-                (2016..2018) (
+                (2014..2018) (
                         "en" to {
                             title("Tech Lead at Group S", "(Human Resources)")
                             description(
@@ -60,33 +60,17 @@ object Romain {
                             )
                         }
                 )
-                (2015..2016) (
-                        "en" to {
-                            title("Software Engineer at Group S", "(Human Resources)")
-                            description(
-                                "Centralize engine to validate any data input into the information system",
-                                "Database Sharding: working on an environment with transverse regional databases"
-                            )
-                        },
-                        "fr" to {
-                            title("Ingénieur Logiciel chez Group S", "(Ressources Humaines)")
-                            description(
-                                    "Développement d'un système modulaire de validation pour les entrants dans le SI",
-                                    "Développement et mise en place d'un système de Database Sharding"
-                            )
-                        }
-                )
                 (2009..2014) (
                         "en" to {
                             title("Java Software Developer at OET", "(Food industry)")
                             description(
-                                    "From zero to production enhancement, maintenance and support."
+                                "From zero to production enhancement, maintenance and support."
                             )
                         },
                         "fr" to {
-                            title("Analyste/Developpeur Java chez OET", "(industrie agroalimentaire)")
+                            title("Developpeur d'application Java chez OET", "(Industrie agroalimentaire)")
                             description(
-                                    "Étude et conception de nouvelles fonctionnalités, maintenance et support."
+                                "Étude et conception de nouvelles fonctionnalités, maintenance et support."
                             )
                         }
                 )
@@ -128,11 +112,11 @@ object Romain {
                 T("all" to "Kodein Framework") (
                         "en" to {
                             title("Kotlin/Multiplatform for iOS, Android, Desktop & Servers.")
-                            description("2.2k ☆ Dependency Injection, embedded NoSQL, Model View Intent, etc.")
+                            description("2.5k ☆ Dependency Injection, embedded NoSQL, Logging, MVI, etc.")
                         },
                         "fr" to {
                             title("Kotlin/Multiplatform pour iOS, Android, Desktop & Serveurs.")
-                            description("2.2k ☆ Injection de Dépendance, NoSQL embarqué, Model View Intent, ...")
+                            description("2.5k ☆ Injection de Dépendance, NoSQL embarqué, Logging, MVI, ...")
                         }
                 )
             }
@@ -146,29 +130,46 @@ object Romain {
         ) {
             yearList {
                 2020 (
-                        "all" to {
-                            title("TakingKt", ", Paris, France")
+                        "en" to {
+                            p {
+                                title("TakingKt", ", Paris, France")
+                                description("Modern backend with Kotlin.")
+                            }
+                            p {
+                                title("EveryhwereEvent", ", Paris, France")
+                                description("State of the Kotlin/Multiplatform ecosystem (nov 2020).")
+                            }
+                        },
+                        "fr" to {
+                            p {
+                                title("TakingKt", ", Paris, France")
+                                description("Cloud moderne en Kotlin !")
+                            }
+                            p {
+                                title("EveryhwereEvent", ", Online")
+                                description("État de l'écosystème de Kotlin/Multiplatform (nov 2020).")
+                            }
                         }
                 )
                 2019 (
                         "en" to {
                             p {
                                 title("KotlinConf", ", Copenhagen, Denmark")
-                                description("Workshop: Go multi-platform with Kotlin")
+                                description("Workshop: Go multi-platform with Kotlin.")
                             }
                             p {
                                 title("Kotlin/Everywhere", ", Paris, France")
-                                description("Workshop: Modern cloud application with Kotlin")
+                                description("Workshop: Modern cloud application with Kotlin.")
                             }
                         },
                         "fr" to {
                             p {
                                 title("KotlinConf", ", Copenhague, Danemark")
-                                description("Workshop: Go multi-platform with Kotlin")
+                                description("Workshop: Go multi-platform with Kotlin.")
                             }
                             p {
                                 title("Kotlin/Everywhere", ", Paris, France")
-                                description("Workshop: Modern cloud application with Kotlin")
+                                description("Workshop: Modern cloud application with Kotlin.")
                             }
                         }
                 )
