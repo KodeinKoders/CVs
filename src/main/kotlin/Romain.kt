@@ -1,5 +1,3 @@
-import kotlinx.css.b
-import react.dom.b
 import react.dom.p
 import utils.Name
 import kotlin.js.Date
@@ -10,8 +8,8 @@ object Romain {
     val cv = cv(
             name = this.name,
             title = T(
-                    "en" to "Kotlin Developer / Trainer",
-                    "fr" to "Développeur / Formateur Kotlin"
+                "en" to "Mobile developer",
+                "fr" to "Développeur mobile"
             ),
             email = "romain@kodein.net",
             phone = T(
@@ -28,51 +26,61 @@ object Romain {
                 link = "http://linkedin.com/in/romainbsl"
         ) {
             yearSpanList {
-                (2018..Int.MAX_VALUE) (
-                        "en" to {
-                            title("Founder at Kodein Koders","(Kotlin Developer & Trainer)")
-                            description(
-                                "Providing consultancy, training, and Open Source tools for Kotlin technologies.",
-                                "Certified Jetbrains partner & Kotlin trainer."
-                            )
-                        },
-                        "fr" to {
-                            title("Fondateur de Kodein Koders","(Developpeur et Formateur Kotlin)")
-                            description(
-                                "Formation, consultance, et développement Open Source Kotlin.",
-                                "Certifié partenaire Jetbrains & formateur Kotlin."
-                            )
-                        }
+                (2018..Int.MAX_VALUE)(
+                    "en" to {
+                        title("Founder at Kodein Koders", "(Kotlin Developer & Trainer)")
+                        description(
+                            "Providing consultancy, training, and Open Source tools for Kotlin technologies.",
+                            "Certified JetBrains partner & Kotlin trainer.",
+                            "- Kotlin Multiplpatform development at and architecture at SumUp (POS).",
+                            "... Kotlin & Swift, Coroutines, Redux & CQRS",
+                            "- Kotlin Multiplpatform development at ACINQ, on a Lightning (Bitcoin) Wallet.",
+                            "... Kotlin & Swift, Coroutines, Bitcoin protocol, Socket & Electrum watching",
+                            "- Android development and architecture at Carrefour, on online shopping app.",
+                            "... Kotlin, Coroutines, MVI, modularization & improving the codebase",
+                            "- Android development at SFR, on a email app.",
+                            "... Kotlin, Coroutines, setting up best practices",
+                        )
+                    },
+                    "fr" to {
+                        title("Fondateur de Kodein Koders", "(Developpeur et Formateur Kotlin)")
+                        description(
+                            "Formation, consultance, et développement Open Source Kotlin.",
+                            "Certifié partenaire JetBrains & formateur Kotlin.",
+                            "- Kotlin Multiplpatform et architecture chez SumUp, Point-Of-Sale.",
+                            "... Kotlin & Swift, Coroutines, Redux & CQRS",
+                            "- Kotlin Multiplpatform chez ACINQ, sur un portefeuille Lightning (Bitcoin).",
+                            "... Kotlin & Swift, Coroutines, Bitcoin protocol, Socket & Electrum watching",
+                            "- Android dev et architecture chez Carrefour, pour l'app de courses en ligne.",
+                            "... Kotlin, Coroutines, MVI, modularisation & renforcement de l'existant.",
+                            "- Android dev chez SFR, sur le client d'emailing.",
+                            "... Kotlin, Coroutines, mise en place de l'architecture et bonnes pratiques",
+                        )
+                    }
                 )
-                (2014..2018) (
-                        "en" to {
-                            title("Tech Lead at Group S", "(Human Resources)")
-                            description(
-                                "In charge of development process, recruiting / supervising developers.",
-                                "Revamping existing monolith architecture to microservices."
-                            )
-                        },
-                        "fr" to {
-                            title("Lead technique chez Group S", "(Ressources Humaines)")
-                            description(
-                                "En charge des process de développement, recrutement / supervision des développeur.",
-                                "Migration d'une application monolithe vers une architecture microservices."
-                            )
-                        }
+                (2014..2019)(
+                    "en" to {
+                        title("Tech Lead at Group S", "(Human Resources)")
+                        description(
+                            "In charge of development process, recruiting / supervising developers.",
+                            "Revamping existing monolith architecture to microservices."
+                        )
+                    },
+                    "fr" to {
+                        title("Lead technique chez Group S", "(Ressources Humaines)")
+                        description(
+                            "En charge des process de développement, recrutement / supervision des développeur.",
+                            "Migration d'une application monolithe vers une architecture microservices."
+                        )
+                    }
                 )
                 (2009..2014) (
-                        "en" to {
-                            title("Java Software Developer at OET", "(Food industry)")
-                            description(
-                                "From zero to production enhancement, maintenance and support."
-                            )
-                        },
-                        "fr" to {
-                            title("Developpeur d'application Java chez OET", "(Industrie agroalimentaire)")
-                            description(
-                                "Étude et conception de nouvelles fonctionnalités, maintenance et support."
-                            )
-                        }
+                    "en" to {
+                        title("Java Software Developer at OET", "(Food industry)")
+                    },
+                    "fr" to {
+                        title("Developpeur d'application Java chez OET", "(Industrie agroalimentaire)")
+                    }
                 )
             }
         }
@@ -84,21 +92,13 @@ object Romain {
                 endsWithSeparator = true
         ) {
             yearSpanList {
-                (2009..2011) (
-                        "en" to {
-                            title("Master", "IT Management at Institut d'Informatique Apppliquée")
-                        },
-                        "fr" to {
-                            title("Master", "Management IT à Institut d'Informatique Apppliquée")
-                        }
-                )
-                (2006..2008) (
-                        "en" to {
-                            title("IT Associate Degree", "at Institut d'Informatique Apppliquée")
-                        },
-                        "fr" to {
-                            title("BTS Informatique de gestion", "à Institut d'Informatique Apppliquée")
-                        }
+                (2006..2011)(
+                    "en" to {
+                        title("Master", "IT Management at Institut d'Informatique Apppliquée")
+                    },
+                    "fr" to {
+                        title("Master", "Management IT à Institut d'Informatique Apppliquée")
+                    }
                 )
             }
         }
@@ -111,12 +111,12 @@ object Romain {
             titleList(40) {
                 T("all" to "Kodein Framework") (
                         "en" to {
-                            title("Kotlin/Multiplatform for iOS, Android, Desktop & Servers.")
-                            description("2.5k ☆ Dependency Injection, embedded NoSQL, Logging, MVI, etc.")
+                            title("Kotlin Multiplatform for iOS, Android, Desktop & Servers.")
+                            description("2.9k ☆ Dependency Injection, embedded NoSQL, Logging, MVI, etc.")
                         },
                         "fr" to {
-                            title("Kotlin/Multiplatform pour iOS, Android, Desktop & Serveurs.")
-                            description("2.5k ☆ Injection de Dépendance, NoSQL embarqué, Logging, MVI, ...")
+                            title("Kotlin Multiplatform pour iOS, Android, Desktop & Serveurs.")
+                            description("2.9k ☆ Injection de Dépendance, NoSQL embarqué, Logging, MVI, ...")
                         }
                 )
             }
@@ -129,49 +129,19 @@ object Romain {
                 endsWithSeparator = true
         ) {
             yearList {
-                2020 (
-                        "en" to {
-                            p {
-                                title("TakingKt", ", Paris, France")
-                                description("Modern backend with Kotlin.")
-                            }
-                            p {
-                                title("EveryhwereEvent", ", Paris, France")
-                                description("State of the Kotlin/Multiplatform ecosystem (nov 2020).")
-                            }
-                        },
-                        "fr" to {
-                            p {
-                                title("TakingKt", ", Paris, France")
-                                description("Cloud moderne en Kotlin !")
-                            }
-                            p {
-                                title("EveryhwereEvent", ", Online")
-                                description("État de l'écosystème de Kotlin/Multiplatform (nov 2020).")
-                            }
+                2022(
+                    "en" to {
+                        p {
+                            title("FOSDEM", "Kotlin DevRoom")
+                            description("Advanced dependency injection for Kotlin Multiplatform")
                         }
-                )
-                2019 (
-                        "en" to {
-                            p {
-                                title("KotlinConf", ", Copenhagen, Denmark")
-                                description("Workshop: Go multi-platform with Kotlin.")
-                            }
-                            p {
-                                title("Kotlin/Everywhere", ", Paris, France")
-                                description("Workshop: Modern cloud application with Kotlin.")
-                            }
-                        },
-                        "fr" to {
-                            p {
-                                title("KotlinConf", ", Copenhague, Danemark")
-                                description("Workshop: Go multi-platform with Kotlin.")
-                            }
-                            p {
-                                title("Kotlin/Everywhere", ", Paris, France")
-                                description("Workshop: Modern cloud application with Kotlin.")
-                            }
+                    },
+                    "fr" to {
+                        p {
+                            title("FOSDEM", "Kotlin DevRoom")
+                            description("Injection de dépendance avancée pour Kotlin Multiplatform")
                         }
+                    }
                 )
             }
         }
