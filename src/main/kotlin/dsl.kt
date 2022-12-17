@@ -1,17 +1,73 @@
-import kotlinx.css.*
+import kotlinx.browser.document
+import kotlinx.browser.window
+import kotlinx.css.Align
+import kotlinx.css.Color
+import kotlinx.css.Display
+import kotlinx.css.FlexDirection
+import kotlinx.css.FlexWrap
+import kotlinx.css.FontWeight
+import kotlinx.css.JustifyContent
+import kotlinx.css.LinearDimension
+import kotlinx.css.ListStyleType
+import kotlinx.css.Position
+import kotlinx.css.TextAlign
+import kotlinx.css.alignItems
+import kotlinx.css.background
+import kotlinx.css.backgroundColor
+import kotlinx.css.bottom
+import kotlinx.css.color
+import kotlinx.css.display
+import kotlinx.css.em
+import kotlinx.css.flexDirection
+import kotlinx.css.flexGrow
+import kotlinx.css.flexWrap
+import kotlinx.css.fontSize
+import kotlinx.css.fontWeight
+import kotlinx.css.height
+import kotlinx.css.justifyContent
+import kotlinx.css.left
+import kotlinx.css.lineHeight
+import kotlinx.css.listStyleType
+import kotlinx.css.margin
+import kotlinx.css.marginRight
+import kotlinx.css.marginTop
+import kotlinx.css.mm
+import kotlinx.css.padding
+import kotlinx.css.paddingBottom
+import kotlinx.css.paddingLeft
+import kotlinx.css.paddingRight
+import kotlinx.css.paddingTop
+import kotlinx.css.pct
+import kotlinx.css.position
 import kotlinx.css.properties.boxShadow
 import kotlinx.css.properties.lh
-import kotlinx.html.InputType
+import kotlinx.css.right
+import kotlinx.css.textAlign
+import kotlinx.css.width
+import kotlinx.css.zIndex
 import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.css.CSSPageRule
 import org.w3c.dom.events.Event
-import react.*
-import react.dom.*
-import styled.*
+import react.Props
+import react.RBuilder
+import react.dom.b
+import react.dom.br
+import react.dom.li
+import react.dom.small
+import react.dom.span
+import react.fc
+import react.useEffectOnce
+import react.useRef
+import styled.css
+import styled.styledA
+import styled.styledDiv
+import styled.styledH1
+import styled.styledH2
+import styled.styledImg
+import styled.styledSmall
+import styled.styledSpan
+import styled.styledUl
 import utils.Name
 import utils.intermediate
-import kotlin.browser.document
-import kotlin.browser.window
 import kotlin.js.Date
 
 private fun Int.groupBackgroundColor() = when (this) {
@@ -39,10 +95,10 @@ fun cv(
         birth: Date,
         builder: CVBuilder.() -> Unit
 ): RBuilder.(String, Boolean, Boolean) -> Unit = { lang, anonymous, grayScale ->
-    val comp = functionalComponent<RProps> {
+    val comp = fc<Props> {
 
-        val div = useRef<HTMLDivElement?>(null)
-        useEffectWithCleanup(emptyList()) {
+        val div = useRef<HTMLDivElement>(null)
+        useEffectOnce {
             fun updateSize() {
                 val wwidth = document.body!!.clientWidth
                 val cwidth = div.current!!.clientWidth
@@ -58,8 +114,6 @@ fun cv(
             val el: (Event) -> Unit = { updateSize() }
 
             window.addEventListener("resize", el)
-
-            ({ window.removeEventListener("resize", el) })
         }
 
         styledDiv {

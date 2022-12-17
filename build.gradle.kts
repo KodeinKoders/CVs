@@ -1,48 +1,35 @@
 plugins {
-    kotlin("js") version "1.3.72"
+    kotlin("js") version "1.7.21"
     id("org.ajoberstar.git-publish") version "2.1.3"
 }
 
 version = "1.0"
 
 repositories {
-    jcenter()
-    maven(url = "https://kotlin.bintray.com/kotlin-js-wrappers")
+    mavenCentral()
 }
 
 kotlin {
-    target {
-        browser {}
-
-        useCommonJs()
+    js {
+        browser()
+        binaries.executable()
     }
+}
 
-    sourceSets["main"].dependencies {
-        implementation(kotlin("stdlib-js"))
+fun kotlinw(target: String): String =
+    "org.jetbrains.kotlin-wrappers:kotlin-$target"
 
-        val reactVersion = "16.13.0"
-        val reactRouterVersion = "4.3.1"
-        val kotlinWrapperVersion = "pre.92-kotlin-1.3.61"
+dependencies {
+    implementation(enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.454")))
+    implementation(kotlinw("react"))
+    implementation(kotlinw("react-dom"))
+    implementation(kotlinw("react-router-dom"))
+    implementation(kotlinw("styled-next"))
 
-        api("org.jetbrains:kotlin-react-dom:$reactVersion-$kotlinWrapperVersion")
-        api("org.jetbrains:kotlin-react-router-dom:$reactRouterVersion-$kotlinWrapperVersion")
-        implementation("org.jetbrains:kotlin-styled:1.0.0-$kotlinWrapperVersion")
-
-        implementation(npm("react", "^$reactVersion"))
-        implementation(npm("react-dom", "^$reactVersion"))
-        implementation(npm("react-router", "^$reactRouterVersion"))
-        implementation(npm("react-router-dom", "^$reactRouterVersion"))
-
-        implementation(npm("css-in-js-utils", "3.0.2"))
-        implementation(npm("inline-style-prefixer", "5.1.0"))
-        implementation(npm("styled-components", "4.3.2"))
-        implementation(npm("core-js", "3.2.0"))
-
-        implementation(npm("highlight.js", "9.16.2"))
-        implementation(npm("react-markdown", "4.2.2"))
-    }
-
-    sourceSets.all { languageSettings.enableLanguageFeature("NewInference") }
+    implementation(npm("css-in-js-utils", "3.1.0"))
+    implementation(npm("inline-style-prefixer", "7.0.0"))
+    implementation(npm("styled-components", "5.3.6"))
+    implementation(npm("core-js", "3.26.1"))
 }
 
 gitPublish {
